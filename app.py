@@ -1,10 +1,13 @@
-from flask import Flask, render_template,Response,jsonify,request
+from flask import Flask, render_template,jsonify,request
 from flask_cors import CORS
 import cv2 
 import os 
 import HandTrackingModule as htm
 import numpy as np
 import time
+from jacardmetric import jaccard_similarity
+from getResults import *
+import random 
 
 
 
@@ -14,7 +17,7 @@ app = Flask(__name__)
 CORS(app)
 camera = cv2.VideoCapture(0)
 imgCanvas = np.zeros((720,1280,3),np.uint8)
-
+score = 0 
 
 def start_painter():
     global imgCanvas
@@ -104,17 +107,31 @@ def start_painter():
    
 
 @app.route('/save_image',methods=['GET'])
-def saveImage():
-    global imgCanvas
+def save_and_score():
+    global imgCanvas,score
+    word = request.args.get('word')
     image_id = int(request.args.get('id'))
-    cv2.imwrite(f'{image_id}.jpeg',imgCanvas)
+    cv2.imwrite(f'{image_id}.png',imgCanvas)
     imgCanvas = np.zeros((720,1280,3),np.uint8)
-    time.sleep(5)
+    recognized_word = ""
+    data = fetchResults(f'{image_id}.png')
+    best_score = 0
+    for elem in data : 
+        if best_score < jaccard_similarity(elem,word):
+            best_score = jaccard_similarity(elem,word)
+            recognized_word = elem
+    score += best_score
     return jsonify({
-        "message" : "Success"
+        "Score" : best_score*10 ,
+        "Word" : recognized_word
     })
 
-
+@app.route("/currentscore",methods = ['GET'])
+def getScore():
+    global score
+    return jsonify({
+        "score" : score
+    })
 
 @app.route('/video')
 def video():
@@ -123,10 +140,14 @@ def video():
 
 @app.route("/")
 def home():
+    global score
+    score = 0 
     return render_template("index.html")
 
 @app.route("/end")
 def endtest():
-    return render_template("endtest.html")
+    global score
+    return render_template("endtest.html",context={'score': score})
 
 app.run(port = 8080, debug= True)
+
