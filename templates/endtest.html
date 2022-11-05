@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<body>
+    
+    <div class="container mx-5 my-5">
+        <h2>Your Test was submitted Successfully!! You can now close this window</h2>
+        <h2>Your score is {{ context.score*10 }}/20</h2>
+    </div>
+    <script>
+        localStorage.clear()
+    </script>
+
+</body>
+{% endblock body %}

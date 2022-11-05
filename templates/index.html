@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  
+
+    
+<div class="container mx-5 my-5 ">
+  <h1 id="word"></h1>
+  <h1 id="score"></h1>
+  <h1 id="guess"></h1>
+  <h4>Your Camera</h4>
+  <img style="border: 10px solid black" src="{{ url_for('video') }}" width="60%"/>
+
+
+</div>
+<br>
+<button id="pronounce" onclick="speak();" class="btn btn-primary btn-large mx-5">Pronounce Word</button>
+<button id="next" onclick="next_word();" class="btn btn-warning btn-large mx-2">Next Word</button>
+
+<button id="start" onclick="next_word();" class="btn btn-success btn-large mx-2">Start Test</button>
+<a href="/end"><button id="end" class="btn btn-danger btn-large mx-2">End Test</button></a>
+
+<br><br>
+<div id="load1" class="spinner-border mx-5" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<h5 id="load2" class="mx-5 my-2">Please wait while we are evaluating your writing</h5>
+
+
+
+{% endblock body %}
