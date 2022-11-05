@@ -5,11 +5,13 @@ import os
 import HandTrackingModule as htm
 import numpy as np
 import time
-from jacardmetric import jaccard_similarity
 from getResults import *
 import random 
+from difflib import SequenceMatcher
 
 
+def similar(a, b):
+    return SequenceMatcher(None, a, b).ratio()
 
 
 
@@ -114,9 +116,9 @@ def save_and_score():
     cv2.imwrite(f'{image_id}.png',imgCanvas)
     imgCanvas = np.zeros((720,1280,3),np.uint8)
     data = requestOCR(f'{image_id}.png')
-    score = jaccard_similarity(data,word)
+    score = similar(data,word)
     return jsonify({
-        "Score" : jaccard_similarity(data,word)*10,
+        "Score" : similar(data,word)*10,
         "Word" : data
     })
 
