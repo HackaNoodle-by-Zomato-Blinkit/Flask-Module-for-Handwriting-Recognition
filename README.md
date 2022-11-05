@@ -12,5 +12,19 @@
 4. Google Cloud Vision API 
 
 
+## Installation and Setup 💾
+
+1. Install the following modules using pip 
+```
+pip install flask 
+pip install opencv-python
+pip install mediapipe
+```
+
+2. To run the application 
+```
+py app.py
+```
+
 ## Built by </>
 ## Built with ❤️
