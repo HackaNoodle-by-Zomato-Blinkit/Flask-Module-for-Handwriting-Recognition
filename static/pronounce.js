@@ -11,7 +11,7 @@ const checkBrowserCompatibility = () => {
 }
 
 
-let words = ["Hello","Chess"]
+let words = ["bad","Chess"]
 
 
 checkBrowserCompatibility()
@@ -47,7 +47,7 @@ function check_conditions(){
       pronounce_button.disabled = false
       next_button.disabled = false
       end_button.disabled = false
-      heading.innerHTML = `You are at ${parseInt(localStorage.getItem("index")) + 1}th word. (There are total 2 words)`
+      heading.innerHTML = `You are at ${parseInt(localStorage.getItem("index")) + 1}th word.`
   
   
   }

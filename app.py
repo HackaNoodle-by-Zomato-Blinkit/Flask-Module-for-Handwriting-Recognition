@@ -113,17 +113,11 @@ def save_and_score():
     image_id = int(request.args.get('id'))
     cv2.imwrite(f'{image_id}.png',imgCanvas)
     imgCanvas = np.zeros((720,1280,3),np.uint8)
-    recognized_word = ""
-    data = fetchResults(f'{image_id}.png')
-    best_score = 0
-    for elem in data : 
-        if best_score < jaccard_similarity(elem,word):
-            best_score = jaccard_similarity(elem,word)
-            recognized_word = elem
-    score += best_score
+    data = requestOCR(f'{image_id}.png')
+    score = jaccard_similarity(data,word)
     return jsonify({
-        "Score" : best_score*10 ,
-        "Word" : recognized_word
+        "Score" : jaccard_similarity(data,word)*10,
+        "Word" : data
     })
 
 @app.route("/currentscore",methods = ['GET'])
