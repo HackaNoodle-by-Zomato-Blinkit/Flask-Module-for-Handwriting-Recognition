@@ -11,7 +11,7 @@ const checkBrowserCompatibility = () => {
 }
 
 
-let words = ["bad","Chess"]
+let words = ["Hello","Bad","Chess","Foot","Hand","Paper","Book","Pen","Tree","Band"]
 
 
 checkBrowserCompatibility()
@@ -47,7 +47,7 @@ function check_conditions(){
       pronounce_button.disabled = false
       next_button.disabled = false
       end_button.disabled = false
-      heading.innerHTML = `You are at ${parseInt(localStorage.getItem("index")) + 1}th word.`
+      heading.innerHTML = `You are at ${parseInt(localStorage.getItem("index")) + 1}th word. (There are Total 10 Words) <br/> <h4 class="my-2">Write the pronounced word on the screen using Virtual Painter Tool.</h4>`
   
   
   }
@@ -86,7 +86,7 @@ async function next_word(){
         index++;
         localStorage.setItem("index",index)
         if(parseInt(localStorage.getItem("index")) !== words.length)
-        heading.innerHTML = `You are at ${parseInt(localStorage.getItem("index")) + 1}th word. (There are total 2 words)`
+        heading.innerHTML = `You are at ${parseInt(localStorage.getItem("index")) + 1}th word. (There are total 10 words) <br/> <h4 class="my-2">Write the pronounced word on the screen using Virtual Painter Tool.</h4>`
         else 
         heading.innerHTML = "You are done !!! (Click on end test button to end the test)"
 

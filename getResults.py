@@ -3,7 +3,7 @@ import requests
 from base64 import b64encode
 
 ENDPOINT_URL = 'https://vision.googleapis.com/v1/images:annotate'
-api_key = "AIzaSyA_DOnmygw3L2z4qkkhJSrGxuYVo7kWk54"
+api_key = "AIzaSyBg1NjgI_4rilVr1AV5j9xv2uglrLovTVo"
 def makeImageData(imgpath):
     img_req = None
     with open(imgpath, 'rb') as f:
@@ -29,7 +29,6 @@ def requestOCR(imgpath):
                            headers = {'Content-Type': 'application/json'})
     data = json.loads(response.text)
     return data["responses"][0]['fullTextAnnotation']['text']
-
 
 
 

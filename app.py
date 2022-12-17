@@ -118,7 +118,7 @@ def save_and_score():
     data = requestOCR(f'{image_id}.png')
     score = similar(data,word)
     return jsonify({
-        "Score" : similar(data,word)*10,
+        "Score" : similar(data.lower(),word.lower())*10,
         "Word" : data
     })
 
